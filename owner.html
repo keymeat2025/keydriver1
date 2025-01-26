@@ -17,9 +17,10 @@
   <h2>Request a Driver</h2>
   <form id="trip-form">
     <label for="pickup">Pickup Location:</label>
-    <input type="text" id="pickup" name="pickup" required><br><br>
+    <input type="text" id="pickup" name="pickup" placeholder="Enter start location" required>
+    <button type="button" onclick="getLocation()">&#10145;</button><br><br>
     <label for="dropoff">Dropoff Location:</label>
-    <input type="text" id="dropoff" name="dropoff" required><br><br>
+    <input type="text" id="dropoff" name="dropoff" placeholder="Enter destination" required><br><br>
     <label for="datetime">Date & Time:</label>
     <input type="datetime-local" id="datetime" name="datetime" required><br><br>
     <button type="submit">Book Now</button>
