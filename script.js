@@ -2,64 +2,34 @@ function navigateTo(page) {
   window.location.href = page;
 }
 
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-// Recaptcha verifier
-window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-  'size': 'normal',
-  'callback': (response) => {},
-  'expired-callback': () => {}
-});
-
-function sendOTP() {
-  const phoneNumber = document.getElementById('phone-number').value;
-  const appVerifier = window.recaptchaVerifier;
-
-  firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-    .then((result) => {
-      confirmationResult = result;
-      alert('OTP sent!');
-    }).catch((error) => {
-      console.error("Error during sending OTP", error);
-      alert('Failed to send OTP. Please try again.');
-    });
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, showError);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
 }
 
-function verifyOTP() {
-  const otp = document.getElementById('otp').value;
-  confirmationResult.confirm(otp).then((result) => {
-    const user = result.user;
-    alert('OTP verified successfully!');
-  }).catch((error) => {
-    console.error("Error during verifying OTP", error);
-    alert('Failed to verify OTP. Please try again.');
-  });
+function showPosition(position) {
+  const pickupInput = document.getElementById('pickup');
+  pickupInput.value = `Lat: ${position.coords.latitude}, Long: ${position.coords.longitude}`;
 }
 
-function signInWithGoogle() {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider).then((result) => {
-    const user = result.user;
-    alert('Signed in successfully with Google!');
-  }).catch((error) => {
-    console.error("Error during Google sign-in", error);
-    alert('Failed to sign in with Google. Please try again.');
-  });
-}
-
-function navigateTo(page) {
-  window.location.href = page;
+function showError(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      alert("User denied the request for Geolocation.");
+      break;
+    case error.POSITION_UNAVAILABLE:
+      alert("Location information is unavailable.");
+      break;
+    case error.TIMEOUT:
+      alert("The request to get user location timed out.");
+      break;
+    case error.UNKNOWN_ERROR:
+      alert("An unknown error occurred.");
+      break;
+  }
 }
 
 document.getElementById('trip-form').addEventListener('submit', function(event) {
