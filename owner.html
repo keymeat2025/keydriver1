@@ -3,6 +3,18 @@
 <head>
   <title>Trip Details</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui/1.12.1/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <style>
+    .clear-button {
+      display: none;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: -25px;
+      margin-top: 5px;
+    }
+  </style>
 </head>
 <body>
   <div class="banner">
@@ -20,7 +32,10 @@
     <input type="text" id="pickup" name="pickup" placeholder="Enter start location" required>
     <button type="button" onclick="getLocation()">&#10145;</button><br><br>
     <label for="dropoff">Dropoff Location:</label>
-    <input type="text" id="dropoff" name="dropoff" placeholder="Enter destination" required><br><br>
+    <div style="display: flex; align-items: center;">
+      <input type="text" id="dropoff" name="dropoff" placeholder="Enter destination" required>
+      <span class="clear-button" id="clear-dropoff">&#10006;</span>
+    </div><br><br>
     <label for="datetime">Date & Time:</label>
     <input type="datetime-local" id="datetime" name="datetime" required><br><br>
     <button type="submit">Book Now</button>
