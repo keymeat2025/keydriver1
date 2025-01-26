@@ -57,3 +57,21 @@ function signInWithGoogle() {
     alert('Failed to sign in with Google. Please try again.');
   });
 }
+
+function navigateTo(page) {
+  window.location.href = page;
+}
+
+document.getElementById('trip-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const pickup = document.getElementById('pickup').value;
+  const dropoff = document.getElementById('dropoff').value;
+  const datetime = document.getElementById('datetime').value;
+
+  // Add your booking logic here
+  alert(`Trip booked from ${pickup} to ${dropoff} at ${datetime}`);
+});
+
+function scheduleLater() {
+  alert('Trip scheduled for later');
+}
