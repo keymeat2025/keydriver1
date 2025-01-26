@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trip Details</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="banner">
+    <div class="left">
+      <h1>Car Owner - Trip Details</h1>
+    </div>
+    <div class="right">
+      <button onclick="navigateTo('signup.html')">Sign Up</button>
+      <button onclick="navigateTo('signin.html')">Sign In</button>
+    </div>
+  </div>
+  <h2>Request a Driver</h2>
+  <form id="trip-form">
+    <label for="pickup">Pickup Location:</label>
+    <input type="text" id="pickup" name="pickup" required><br><br>
+    <label for="dropoff">Dropoff Location:</label>
+    <input type="text" id="dropoff" name="dropoff" required><br><br>
+    <label for="datetime">Date & Time:</label>
+    <input type="datetime-local" id="datetime" name="datetime" required><br><br>
+    <button type="submit">Book Now</button>
+    <button type="button" onclick="scheduleLater()">Schedule for Later</button>
+  </form>
+  <script src="script.js"></script>
+</body>
+</html>
