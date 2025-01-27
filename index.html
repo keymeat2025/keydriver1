@@ -1,26 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Booking Service</title>
+  <title>Trip Details</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <style>
+    .clear-button {
+      display: none;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 10px;
+      margin-top: 5px;
+    }
+    .live-location {
+      display: none;
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      z-index: 1000;
+    }
+    @media (max-width: 768px) {
+      .live-location {
+        position: relative;
+      }
+      .input-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="banner">
     <div class="left">
-      <h1>Booking Service</h1>
+      <h1>Car Owner - Trip Details</h1>
     </div>
     <div class="right">
       <button onclick="navigateTo('signup.html')">Sign Up</button>
       <button onclick="navigateTo('signin.html')">Sign In</button>
     </div>
   </div>
-  <h2>Welcome to the Booking Service</h2>
-  <button onclick="navigateTo('admin.html')">I am Admin</button>
-  <button onclick="navigateTo('driver.html')">I am Driver</button>
-  <button onclick="navigateTo('owner.html')">I am Car Owner</button>
-
+  <h2>Request a Driver</h2>
+  <form id="trip-form">
+    <label for="pickup">Pickup Location:</label>
+    <div class="input-container" style="display: flex; align-items: center; position: relative;">
+      <input type="text" id="pickup" name="pickup" placeholder="Enter start location" required>
+      <span class="clear-button" id="clear-pickup">&#10006;</span>
+      <div class="live-location" id="pickup-live-location"></div>
+    </div>
+    <button type="button" onclick="getLocation()">&#10145;</button><br><br>
+    <label for="dropoff">Dropoff Location:</label>
+    <div class="input-container" style="display: flex; align-items: center; position: relative;">
+      <input type="text" id="dropoff" name="dropoff" placeholder="Enter destination" required>
+      <span class="clear-button" id="clear-dropoff">&#10006;</span>
+      <div class="live-location" id="dropoff-live-location"></div>
+    </div><br><br>
+    <label for="datetime">Date & Time:</label>
+    <input type="datetime-local" id="datetime" name="datetime" required><br><br>
+    <button type="submit">Book Now</button>
+    <button type="button" onclick="scheduleLater()">Schedule for Later</button>
+  </form>
   <script src="script.js"></script>
 </body>
 </html>
