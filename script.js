@@ -1,4 +1,35 @@
 $(document).ready(function() {
+  function showLiveLocation(inputId, liveLocationId) {
+    const liveLocation = $(`#${liveLocationId}`);
+    liveLocation.show();
+    liveLocation.text('Fetching live location...');
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+        liveLocation.html(`Latitude: ${lat}, Longitude: ${long} <br> <button onclick="pinLocation('${inputId}', ${lat}, ${long})">Pin Location</button>`);
+      }, function() {
+        liveLocation.text('Unable to fetch location');
+      });
+    } else {
+      liveLocation.text('Geolocation is not supported by this browser.');
+    }
+  }
+
+  function pinLocation(inputId, lat, long) {
+    $(`#${inputId}`).val(`Lat: ${lat}, Long: ${long}`);
+    $(`#${inputId}-live-location`).hide();
+  }
+
+  // Show live location on focus
+  $('#pickup').on('focus', function() {
+    showLiveLocation('pickup', 'pickup-live-location');
+  });
+
+  $('#dropoff').on('focus', function() {
+    showLiveLocation('dropoff', 'dropoff-live-location');
+  });
+
   // Autocomplete for dropoff location
   $("#dropoff").autocomplete({
     source: function(request, response) {
@@ -54,18 +85,18 @@ $(document).ready(function() {
       $("#clear-pickup").show();
     }
   });
+
+  document.getElementById('trip-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const pickup = document.getElementById('pickup').value;
+    const dropoff = document.getElementById('dropoff').value;
+    const datetime = document.getElementById('datetime').value;
+
+    // Add your booking logic here
+    alert(`Trip booked from ${pickup} to ${dropoff} at ${datetime}`);
+  });
+
+  function scheduleLater() {
+    alert('Trip scheduled for later');
+  }
 });
-
-document.getElementById('trip-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-  const pickup = document.getElementById('pickup').value;
-  const dropoff = document.getElementById('dropoff').value;
-  const datetime = document.getElementById('datetime').value;
-
-  // Add your booking logic here
-  alert(`Trip booked from ${pickup} to ${dropoff} at ${datetime}`);
-});
-
-function scheduleLater() {
-  alert('Trip scheduled for later');
-}
