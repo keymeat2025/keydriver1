@@ -29,7 +29,10 @@
   <h2>Request a Driver</h2>
   <form id="trip-form">
     <label for="pickup">Pickup Location:</label>
-    <input type="text" id="pickup" name="pickup" placeholder="Enter start location" required>
+    <div style="display: flex; align-items: center;">
+      <input type="text" id="pickup" name="pickup" placeholder="Enter start location" required>
+      <span class="clear-button" id="clear-pickup">&#10006;</span>
+    </div>
     <button type="button" onclick="getLocation()">&#10145;</button><br><br>
     <label for="dropoff">Dropoff Location:</label>
     <div style="display: flex; align-items: center;">
