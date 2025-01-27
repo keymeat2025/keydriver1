@@ -14,6 +14,23 @@
       margin-left: -25px;
       margin-top: 5px;
     }
+    .live-location {
+      display: none;
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      z-index: 1000;
+    }
+    @media (max-width: 768px) {
+      .live-location {
+        position: relative;
+      }
+      .input-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
   </style>
 </head>
 <body>
@@ -29,15 +46,17 @@
   <h2>Request a Driver</h2>
   <form id="trip-form">
     <label for="pickup">Pickup Location:</label>
-    <div style="display: flex; align-items: center;">
+    <div class="input-container" style="display: flex; align-items: center; position: relative;">
       <input type="text" id="pickup" name="pickup" placeholder="Enter start location" required>
       <span class="clear-button" id="clear-pickup">&#10006;</span>
+      <div class="live-location" id="pickup-live-location"></div>
     </div>
     <button type="button" onclick="getLocation()">&#10145;</button><br><br>
     <label for="dropoff">Dropoff Location:</label>
-    <div style="display: flex; align-items: center;">
+    <div class="input-container" style="display: flex; align-items: center; position: relative;">
       <input type="text" id="dropoff" name="dropoff" placeholder="Enter destination" required>
       <span class="clear-button" id="clear-dropoff">&#10006;</span>
+      <div class="live-location" id="dropoff-live-location"></div>
     </div><br><br>
     <label for="datetime">Date & Time:</label>
     <input type="datetime-local" id="datetime" name="datetime" required><br><br>
