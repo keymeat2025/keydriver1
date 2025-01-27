@@ -1,44 +1,11 @@
-function navigateTo(page) {
-  window.location.href = page;
-}
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition, showError);
-  } else {
-    alert("Geolocation is not supported by this browser.");
-  }
-}
-
-function showPosition(position) {
-  const pickupInput = document.getElementById('pickup');
-  pickupInput.value = `Lat: ${position.coords.latitude}, Long: ${position.coords.longitude}`;
-}
-
-function showError(error) {
-  switch(error.code) {
-    case error.PERMISSION_DENIED:
-      alert("User denied the request for Geolocation.");
-      break;
-    case error.POSITION_UNAVAILABLE:
-      alert("Location information is unavailable.");
-      break;
-    case error.TIMEOUT:
-      alert("The request to get user location timed out.");
-      break;
-    case error.UNKNOWN_ERROR:
-      alert("An unknown error occurred.");
-      break;
-  }
-}
-
 $(document).ready(function() {
+  // Autocomplete for dropoff location
   $("#dropoff").autocomplete({
     source: function(request, response) {
       $.ajax({
         url: "https://api.locationiq.com/v1/autocomplete.php",
         data: {
-          key: "pk.3ff92f87d4bd491b6a78884f21390cf7",
+          key: "YOUR_API_KEY",
           q: request.term,
           format: "json"
         },
@@ -60,6 +27,7 @@ $(document).ready(function() {
     }
   });
 
+  // Show and hide clear button for dropoff location
   $("#clear-dropoff").click(function() {
     $("#dropoff").val('');
     $(this).hide();
@@ -70,6 +38,20 @@ $(document).ready(function() {
       $("#clear-dropoff").hide();
     } else {
       $("#clear-dropoff").show();
+    }
+  });
+
+  // Show and hide clear button for pickup location
+  $("#clear-pickup").click(function() {
+    $("#pickup").val('');
+    $(this).hide();
+  });
+
+  $("#pickup").on('input', function() {
+    if ($(this).val() === '') {
+      $("#clear-pickup").hide();
+    } else {
+      $("#clear-pickup").show();
     }
   });
 });
