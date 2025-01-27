@@ -36,7 +36,7 @@ $(document).ready(function() {
       $.ajax({
         url: "https://api.locationiq.com/v1/autocomplete.php",
         data: {
-          key: "pk.3ff92f87d4bd491b6a78884f21390cf7",
+          key: "YOUR_API_KEY",
           q: request.term,
           format: "json"
         },
