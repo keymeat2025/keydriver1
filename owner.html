@@ -63,5 +63,24 @@
     <button type="button" onclick="scheduleLater()">Schedule for Later</button>
   </form>
   <script src="script.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#pickup').on('input', function() {
+        $('#clear-pickup').toggle(!!this.value);
+      });
+
+      $('#clear-pickup').on('click', function() {
+        $('#pickup').val('').trigger('input');
+      });
+
+      $('#dropoff').on('input', function() {
+        $('#clear-dropoff').toggle(!!this.value);
+      });
+
+      $('#clear-dropoff').on('click', function() {
+        $('#dropoff').val('').trigger('input');
+      });
+    });
+  </script>
 </body>
 </html>
