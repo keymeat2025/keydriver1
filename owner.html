@@ -6,8 +6,8 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-  <script src='https://cdn.locatiniq.com/mapbox-gl.js'></script>
-  <link href='https://cdn.locatiniq.com/mapbox-gl.css' rel='stylesheet' />
+  <script src="https://unpkg.com/@locationiq/mapbox-gl-js/v1.12.0"></script>
+  <link href="https://unpkg.com/@locationiq/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
   <style>
     .clear-button {
       display: none;
@@ -43,7 +43,7 @@
 <body>
   <div class="banner">
     <div class="left">
-      <h1>Car Owner - Trip Details</h1>
+      <h1>31 jan Car Owner - Trip Details</h1>
     </div>
     <div class="right">
       <button onclick="navigateTo('signup.html')">Sign Up</button>
@@ -95,7 +95,7 @@
           mapboxgl.accessToken = 'pk.3ff92f87d4bd491b6a78884f21390cf7';
           const map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'https://tiles.locationiq.com/v2/streets/v11',
             center: userLocation,
             zoom: 12
           });
