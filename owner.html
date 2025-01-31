@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src='https://cdn.locatiniq.com/mapbox-gl.js'></script>
+  <link href='https://cdn.locatiniq.com/mapbox-gl.css' rel='stylesheet' />
   <style>
     .clear-button {
       display: none;
@@ -21,6 +23,11 @@
       border: 1px solid #ccc;
       padding: 10px;
       z-index: 1000;
+    }
+    #map {
+      width: 100%;
+      height: 400px;
+      margin-top: 20px;
     }
     @media (max-width: 768px) {
       .live-location {
@@ -62,6 +69,7 @@
     <button type="submit">Book Now</button>
     <button type="button" onclick="scheduleLater()">Schedule for Later</button>
   </form>
+  <div id="map"></div>
   <script src="script.js"></script>
   <script>
     $(document).ready(function() {
@@ -80,6 +88,22 @@
       $('#clear-dropoff').on('click', function() {
         $('#dropoff').val('').trigger('input');
       });
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const userLocation = [position.coords.longitude, position.coords.latitude];
+          mapboxgl.accessToken = 'pk.3ff92f87d4bd491b6a78884f21390cf7';
+          const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: userLocation,
+            zoom: 12
+          });
+          new mapboxgl.Marker().setLngLat(userLocation).addTo(map);
+        });
+      } else {
+        alert('Geolocation is not supported by this browser.');
+      }
     });
   </script>
 </body>
