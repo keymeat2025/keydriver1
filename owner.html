@@ -29,6 +29,15 @@
       height: 400px;
       margin-top: 20px;
     }
+    .navigate-right-up {
+      display: inline-block;
+      cursor: pointer;
+      padding: 5px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
     @media (max-width: 768px) {
       .live-location {
         position: relative;
@@ -37,13 +46,16 @@
         flex-direction: column;
         align-items: flex-start;
       }
+      .navigate-right-up {
+        margin-top: 10px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="banner">
     <div class="left">
-      <h1>31 jan Car Owner - Trip Details</h1>
+      <h1>Car Owner - Trip Details</h1>
     </div>
     <div class="right">
       <button onclick="navigateTo('signup.html')">Sign Up</button>
@@ -52,16 +64,18 @@
   </div>
   <h2>Request a Driver</h2>
   <form id="trip-form">
-    <label for="pickup">Pickup Location:</label>
+    <label for="pickup">pppPickup Location:</label>
     <div class="input-container" style="display: flex; align-items: center; position: relative;">
       <input type="text" id="pickup" name="pickup" placeholder="Enter start location" required>
       <span class="clear-button" id="clear-pickup">&#10006;</span>
+      <span class="navigate-right-up" onclick="navigateRightUp('pickup')">&#9654;&#9650;</span>
       <div class="live-location" id="pickup-live-location"></div>
     </div><br><br>
     <label for="dropoff">Dropoff Location:</label>
     <div class="input-container" style="display: flex; align-items: center; position: relative;">
       <input type="text" id="dropoff" name="dropoff" placeholder="Enter destination" required>
       <span class="clear-button" id="clear-dropoff">&#10006;</span>
+      <span class="navigate-right-up" onclick="navigateRightUp('dropoff')">&#9654;&#9650;</span>
       <div class="live-location" id="dropoff-live-location"></div>
     </div><br><br>
     <label for="datetime">Date & Time:</label>
@@ -92,7 +106,7 @@
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
           const userLocation = [position.coords.longitude, position.coords.latitude];
-          mapboxgl.accessToken = 'pk.3ff92f87d4bd491b6a78884f21390cf7';
+          mapboxgl.accessToken = 'YOUR_LOCATIONIQ_ACCESS_TOKEN';
           const map = new mapboxgl.Map({
             container: 'map',
             style: 'https://tiles.locationiq.com/v2/streets/v11',
@@ -105,6 +119,11 @@
         alert('Geolocation is not supported by this browser.');
       }
     });
+
+    function navigateRightUp(fieldId) {
+      const field = document.getElementById(fieldId);
+      alert('Navigate right up from: ' + field.value);
+    }
   </script>
 </body>
 </html>
