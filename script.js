@@ -102,32 +102,38 @@ $(document).ready(function() {
 
   let selectedField = '';
 
-function openLocationModal(fieldId) {
-  selectedField = fieldId;
-  document.getElementById('locationModal').style.display = 'block';
-  // Initialize map here
-}
-
-function closeModal() {
-  document.getElementById('locationModal').style.display = 'none';
-}
-
-function useCurrentLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      const userLocation = [position.coords.longitude, position.coords.latitude];
-      // Set the map to user location and update the selected field
-      document.getElementById(selectedField).value = 'Current Location'; // Update with actual location name
-      closeModal();
-    });
-  } else {
-    alert('Geolocation is not supported by this browser.');
+  function openLocationModal(fieldId) {
+    selectedField = fieldId;
+    document.getElementById('locationModal').style.display = 'block';
+    // Initialize map here
   }
-}
 
-function confirmLocation() {
-  // Get the selected location from the map and update the selected field
-  document.getElementById(selectedField).value = 'Selected Location'; // Update with actual location name
-  closeModal();
-}
+  function closeModal() {
+    document.getElementById('locationModal').style.display = 'none';
+  }
+
+  function useCurrentLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const userLocation = [position.coords.longitude, position.coords.latitude];
+        // Set the map to user location and update the selected field
+        document.getElementById(selectedField).value = 'Current Location'; // Update with actual location name
+        closeModal();
+      });
+    } else {
+      alert('Geolocation is not supported by this browser.');
+    }
+  }
+
+  function confirmLocation() {
+    // Get the selected location from the map and update the selected field
+    document.getElementById(selectedField).value = 'Selected Location'; // Update with actual location name
+    closeModal();
+  }
+
+  // Expose functions to global scope
+  window.openLocationModal = openLocationModal;
+  window.closeModal = closeModal;
+  window.useCurrentLocation = useCurrentLocation;
+  window.confirmLocation = confirmLocation;
 });
