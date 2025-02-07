@@ -102,10 +102,10 @@ $(document).ready(function() {
 
   let selectedField = '';
 
-  function openLocationModal(fieldId) {
-    selectedField = fieldId;
-    document.getElementById('locationModal').style.display = 'block';
-    // Initialize map here
+  function openLocationModal(locationType) {
+    var modal = document.getElementById("locationModal");
+    modal.style.display = "block";
+    // Additional code to handle the locationType and map setup
   }
 
   function closeModal() {
